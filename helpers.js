@@ -1,5 +1,6 @@
 'use strcit';
 
+var ncp = require('ncp');
 var fs = require('fs');
 var path = require('path');
 
@@ -16,17 +17,23 @@ module.exports = function Helpers(config) {
         fs.writeFileSync(path.join(config.projectLocation, "package.json"), transpiledContent);
     };
 
+    var copyContents = function () {
+        var src = path.join(config.cwd, "templates");
+
+        ncp(src, config.projectLocation, function (err) {
+            if (!err) {
+                console.log("Project Created.");
+                console.log("Please run npm install to install dependencies");
+            }
+        });
+    };
+
     var createProject = function () {
         createDirectory();
-        createFile(config.projectLocation, ".gitignore");
-        createFile(config.projectLocation, "index.js");
+        copyContents();
         createPackageJson();
     };
 
-    var createFile = function (location, fileName) {
-        var contents = fs.readFileSync(path.join(__dirname, "templates", fileName));
-        fs.writeFileSync(path.join(config.projectLocation, fileName), contents);
-    }
     return {
         createProject: createProject
     }
