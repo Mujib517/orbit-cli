@@ -9,6 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bin": {
+    "orbit-cli": "bin/index.js"
+  },
   "dependencies": {
     "ncp": "^2.0.0"
   }

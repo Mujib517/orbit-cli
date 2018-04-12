@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 var path = require('path');
 
 if (process.argv.length < 3) {
@@ -16,4 +18,5 @@ var config = {
 
 var helpers = require('./helpers')(config);
 helpers.createProject();
+helpers.installDependencies();
 
