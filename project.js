@@ -3,6 +3,7 @@
 var ncp = require('ncp');
 var fs = require('fs');
 var path = require('path');
+var shell = require('shelljs');
 
 
 module.exports = function Project(config) {
@@ -23,7 +24,15 @@ module.exports = function Project(config) {
         ncp(src, config.projectLocation, function (err) {
             if (!err) {
                 console.log("Project Created.");
-                console.log("Please run npm install to install dependencies");
+            }
+        });
+    };
+
+    //runs npm install command
+    var installDepepdencies = function () {
+        shell.exec("cd " + config.projectName + " && npm install", function (err) {
+            if (err) {
+                console.log("npm install failed. Please run npm install manually to install dependencies");
             }
         });
     };
@@ -32,6 +41,7 @@ module.exports = function Project(config) {
         createDirectory();
         copyContents();
         createPackageJson();
+        installDepepdencies();
     };
 
     return {
