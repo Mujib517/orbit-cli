@@ -13,32 +13,32 @@ npm install orbit-cli -g
 ### Create Express API project
 Open a command prompt and run:
 
-```javascript
+```bash
 orbit new project-name 
 ```
 (or)
 
-```javascript
+```bash
 orbit-cli new project-name
 ```
 
 Alternatively you can create project using below command
 
-```javascript
+```bash
 orbit n project-name 
 ```
  (or)
 
-```javascript
+```bash
 orbit-cli n project-name
 ```
 ### To get help
 
-```javascript
+```bash
 orbit help
 ```
  (or)
 
-```javascript
+```bash
 orbit --help
 ```
