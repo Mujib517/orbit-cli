@@ -14,15 +14,31 @@ npm install orbit-cli -g
 Open a command prompt and run:
 
 ```javascript
-orbit new project-name (or) orbit-cli new project-name
+orbit new project-name 
 ```
+(or)
+
+```javascript
+orbit-cli new project-name
+```
+
 Alternatively you can create project using below command
 
 ```javascript
-orbit n project-name (or) orbit-cli n project-name
+orbit n project-name 
+```
+ (or)
+
+```javascript
+orbit-cli n project-name
 ```
 ### To get help
 
 ```javascript
-orbit help (or) orbit --help
+orbit help
+```
+ (or)
+
+```javascript
+orbit --help
 ```
