@@ -1,6 +1,10 @@
 ### Orbit CLI
 ## A command line tool for generating express api
 
+<div>
+    <img src="https://travis-ci.org/Mujib517/orbit-cli.svg?branch=master"/>
+</div>
+
 Orbit generates the project skeleton which includes all the necessary code files and build (Travis CI).
 
 ### Installation
