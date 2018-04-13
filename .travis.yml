@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "9"
+  - "8"
+  - "7"
+  - "6"
+  - "5"
+  - "4"
+cache:
+  directories:
+    - node_modules
+deploy:
+  provider: npm
+  email: mujib517@gmail.com
+  api_key: $NPM_TOKEN
+  on:
+    tags: false
+    branch: master
