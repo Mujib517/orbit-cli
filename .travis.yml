@@ -12,7 +12,7 @@ cache:
 deploy:
   provider: npm
   email: mujib517@gmail.com
-  api_key: $NPM_TOKEN
+  api_key: ${NPM_TOKEN}
   on:
     tags: false
     branch: master
