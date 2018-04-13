@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "orbit-cli": "./index.js"
+    "orbit-cli": "./index.js",
+    "orbit": "./index.js"
   },
   "dependencies": {
     "ncp": "^2.0.0"
