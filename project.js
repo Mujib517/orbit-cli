@@ -5,7 +5,7 @@ var fs = require('fs');
 var path = require('path');
 
 
-module.exports = function Helpers(config) {
+module.exports = function Project(config) {
     var createDirectory = function () {
         fs.mkdirSync(config.projectLocation);
     };

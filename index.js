@@ -3,19 +3,37 @@
 var path = require('path');
 
 if (process.argv.length < 3) {
-    throw new Error("Insufficient arguments");
+    console.error('Missing parameters. Command should be "orbit new project-name" ');
+    return;
 }
 
-var projectName = process.argv[2];
-var location = path.resolve('./');
-var projectLocation = path.join(location, projectName);
+var command = process.argv[2];
 
-var config = {
-    cwd:path.dirname(process.argv[1]),
-    projectLocation: projectLocation,
-    projectName: projectName,
-};
+switch (command.toLowerCase()) {
+    case 'new':
+    case 'n':
+        var projectName = process.argv[3];
+        if (!projectName) {
+            console.error('Missing parameters. Command should be "orbit new project-name" ');
+            return;
+        }
+        var location = path.resolve('./');
+        var projectLocation = path.join(location, projectName);
 
-var helpers = require('./helpers')(config);
-helpers.createProject();
-
+        var config = {
+            cwd: path.dirname(process.argv[1]),
+            projectLocation: projectLocation,
+            projectName: projectName,
+        };
+        var project = require('./project')(config);
+        project.createProject();
+        break;
+    case 'help':
+    case '--help':
+        var showHelp = require('./help');
+        showHelp();
+        break;
+    default:
+        console.error('Unknown option. Command should be "orbit new project-name" ');
+        break;
+}
