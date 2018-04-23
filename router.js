@@ -30,8 +30,22 @@ function prepareContent() {
     return buffer.toString();
 }
 
-function updateIndex() {
+function updateIndex(fileName) {
+    var indexFile = path.join(location, "index.js");
+    var buffer = fs.readFileSync(indexFile);
+    var routerAlias = fileName + "Router";
+    var content = "var " + routerAlias + " = require('./routes/" + fileName + ".router.js');";
+    content += "\n";
+    fs.writeFileSync(indexFile, content);
+    content = "\n";
+    fs.appendFileSync(indexFile, buffer);
 
+    content += "app.use('/api/" + fileName + "'," + routerAlias + ");";
+    fs.appendFileSync(indexFile, content);
+}
+
+function resetConsole() {
+    console.log("\x1b[0m");
 }
 
 module.exports = {
@@ -39,8 +53,9 @@ module.exports = {
         if (!isValidProjectDirectory) throw new Error("Not a valid Orbit project");
         createDirectory();
         createRouteFile(fileName);
-        console.log("Created " + fileName + ".router.js");
-        updateIndex();
-        console.log("Updated index.js");
+        console.log("\x1b[32m", "Created " + fileName + ".router.js");
+        updateIndex(fileName);
+        console.log("\x1b[33m", "Updated index.js");
+        resetConsole();
     }
-}
+};
