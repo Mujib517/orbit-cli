@@ -10,7 +10,7 @@ function isValidProjectDirectory() {
 }
 
 function createDirectory() {
-    var routesDirectory = path.join(__dirname, "routes");
+    var routesDirectory = path.join(location, "routes");
     if (!fs.existsSync(routesDirectory)) fs.mkdirSync(routesDirectory);
 }
 
