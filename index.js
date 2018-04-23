@@ -39,6 +39,17 @@ switch (command.toLowerCase()) {
         var router = require('./router');
         router.createRoute(fileName);
         break;
+    case 'middleware':
+    case 'mw':
+        var name = process.argv[3];
+        if (!name) {
+            console.error('Missing parameters. Command should be "orbit middleware middleware-name" ');
+            return;
+        }
+        var middleware = require('./middleware');
+        middleware.create(name);
+        break;
+        break;
     case 'help':
     case '--help':
         var showHelp = require('./help');
