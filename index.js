@@ -28,6 +28,17 @@ switch (command.toLowerCase()) {
         var project = require('./project')(config);
         project.createProject();
         break;
+
+    case 'route':
+    case 'r':
+        var fileName = process.argv[3];
+        if (!fileName) {
+            console.error('Missing parameters. Command should be "orbit route route-name" ');
+            return;
+        }
+        var router = require('./router');
+        router.createRoute(fileName);
+        break;
     case 'help':
     case '--help':
         var showHelp = require('./help');

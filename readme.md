@@ -42,3 +42,15 @@ orbit help
 ```bash
 orbit --help
 ```
+
+### Generate router file
+The below command generate person.router.js file.
+
+```bash
+orbit route person
+```
+  (or)
+
+```bash
+orbit r person
+```
