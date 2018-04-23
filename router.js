@@ -25,7 +25,7 @@ function createRouteFile(fileName) {
 }
 
 function prepareContent() {
-    var routeTemplatePath = path.join(__dirname, "route-template.txt");
+    var routeTemplatePath = path.join(__dirname, "advanced-templates", "route-template.txt");
     var buffer = fs.readFileSync(routeTemplatePath);
     return buffer.toString();
 }
