@@ -79,3 +79,49 @@ orbit model person
 ```bash
 orbit m person
 ```
+
+### Generate controller
+The below command generate person.ctrl.js file.
+
+```bash
+orbit ctrl person
+```
+  (or)
+
+```bash
+orbit c person
+```
+
+Orbit CLI can generate multiple types of controllers:
+##### Controller function
+
+```bash
+orbit ctrl person --function 
+```
+(or)
+
+```bash
+orbit c person -f
+```
+
+##### Controller class
+
+```bash
+orbit ctrl person --class 
+```
+(or)
+
+```bash
+orbit c person -c
+```
+
+##### Controller function (revealing module pattern)
+
+```bash
+orbit ctrl person --module 
+```
+(or)
+
+```bash
+orbit c person -m
+```
