@@ -42,7 +42,7 @@ function installMongoose() {
 }
 
 function isMongooseInstalled(done) {
-    shell.exec("node -p require('mongoose').version -q", done);
+    shell.exec("node -p require('mongoose').version", { silent: true }, done);
 }
 
 function resetConsoleColor() {
