@@ -1,6 +1,7 @@
 
 'use strict';
 
+var shell = require('shelljs');
 var path = require('path');
 var fs = require('fs');
 var location = path.resolve('./');
@@ -25,9 +26,25 @@ function getContent(name) {
     return transformedContent;
 }
 
+function installMongoose() {
+    shell.exec("npm install mongoose --save", function (err) {
+        if (err) {
+            console.log("npm install mongoose failed try running manually");
+        }
+    });
+}
+
+function resetConsoleColor() {
+    console.log("\x1b[0m");
+}
+
 module.exports = {
     create: function (name) {
         createDirectory();
         createFile(name);
+        console.log("\x1b[32m", "Created " + name + ".model.js");
+        console.log("Installing mongoose...");
+        resetConsoleColor();
+        installMongoose();
     }
 };
