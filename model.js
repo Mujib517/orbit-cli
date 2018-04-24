@@ -27,11 +27,22 @@ function getContent(name) {
 }
 
 function installMongoose() {
-    shell.exec("npm install mongoose --save", function (err) {
+    isMongooseInstalled(function (err) {
         if (err) {
-            console.log("npm install mongoose failed try running manually");
+            shell.exec("npm install mongoose --save", function (err) {
+                if (err) {
+                    console.log("npm install mongoose failed try running manually");
+                }
+            });
+        }
+        else {
+            console.log("mongoose already installed. Skipping operation");
         }
     });
+}
+
+function isMongooseInstalled(done) {
+    shell.exec("node -p require('mongoose').version -q", done);
 }
 
 function resetConsoleColor() {
