@@ -3,9 +3,10 @@
 
 <div>
     <img src="https://travis-ci.org/Mujib517/orbit-cli.svg?branch=master"/>
+    <img src="https://badge.fury.io/js/orbit-cli.svg"/>
 </div>
 
-Orbit generates the project skeleton which includes all the necessary code files and build (Travis CI).
+Orbit generates the project skeleton which includes all the necessary code files and build script(Travis CI).
 
 ### Installation
 npm install orbit-cli -g

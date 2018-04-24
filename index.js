@@ -49,6 +49,15 @@ switch (command.toLowerCase()) {
         var middleware = require('./middleware');
         middleware.create(name);
         break;
+    case 'model':
+    case 'm':
+        var name = process.argv[3];
+        if (!name) {
+            console.error('Missing parameters. Command should be "orbit model model-name" ');
+            return;
+        }
+        var model = require('./model');
+        model.create(name);
         break;
     case 'help':
     case '--help':
