@@ -67,3 +67,15 @@ orbit middleware auth
 ```bash
 orbit mw auth
 ```
+
+### Generate mongoose model
+The below command generate person.model.js file and installs mongoose dependency.
+
+```bash
+orbit model person
+```
+  (or)
+
+```bash
+orbit m person
+```
