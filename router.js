@@ -30,7 +30,7 @@ function prepareContent() {
     return buffer.toString();
 }
 
-function updateIndex(name) {
+function updateIndexFile(name) {
     var indexFile = path.join(location, "index.js");
     var buffer = fs.readFileSync(indexFile);
     var routerAlias = name + "Router";
@@ -44,7 +44,7 @@ function updateIndex(name) {
     fs.appendFileSync(indexFile, content);
 }
 
-function resetConsole() {
+function resetConsoleColor() {
     console.log("\x1b[0m");
 }
 
@@ -54,8 +54,8 @@ module.exports = {
         createDirectory();
         createRouteFile(name);
         console.log("\x1b[32m", "Created " + name + ".router.js");
-        updateIndex(name);
+        updateIndexFile(name);
         console.log("\x1b[33m", "Updated index.js");
-        resetConsole();
+        resetConsoleColor();
     }
 };
