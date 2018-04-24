@@ -31,13 +31,13 @@ switch (command.toLowerCase()) {
 
     case 'route':
     case 'r':
-        var fileName = process.argv[3];
-        if (!fileName) {
+        var name = process.argv[3];
+        if (!name) {
             console.error('Missing parameters. Command should be "orbit route route-name" ');
             return;
         }
         var router = require('./router');
-        router.createRoute(fileName);
+        router.createRoute(name);
         break;
     case 'middleware':
     case 'mw':
