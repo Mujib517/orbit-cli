@@ -54,3 +54,15 @@ orbit route person
 ```bash
 orbit r person
 ```
+
+### Generate middleware
+The below command generate auth.middleware.js file.
+
+```bash
+orbit middleware auth
+```
+  (or)
+
+```bash
+orbit mw auth
+```
