@@ -1,0 +1,12 @@
+function Ctrl() {
+    var get = function (req, res) {
+        res.status(200)
+            .send("Controller Works");
+    };
+
+    return {
+        get: get
+    }
+}
+
+module.exports = Ctrl();
