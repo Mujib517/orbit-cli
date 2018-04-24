@@ -19,10 +19,32 @@ function getContent() {
     return fs.readFileSync(templateFile);
 }
 
+function updateIndexFile(name) {
+    var indexFile = path.join(location, "index.js");
+    var buffer = fs.readFileSync(indexFile);
+    var middlewareAlias = name + "Middleware";
+    var content = "var " + middlewareAlias + " = require('./middlewares/" + name + ".middleware.js');";
+    content += "\n";
+    fs.writeFileSync(indexFile, content);
+    content = "\n";
+    fs.appendFileSync(indexFile, buffer);
+
+    content += "app.use(" + middlewareAlias + ");";
+    fs.appendFileSync(indexFile, content);
+}
+
+function resetConsoleColor() {
+    console.log("\x1b[0m");
+}
+
 module.exports = {
 
     create: function (name) {
         createDirectory();
         createFile(name);
+        console.log("\x1b[32m", "Created " + name + ".middleware.js");
+        updateIndexFile(name);
+        console.log("\x1b[33m", "Updated index.js");
+        resetConsoleColor();
     }
 };
