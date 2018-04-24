@@ -59,6 +59,18 @@ switch (command.toLowerCase()) {
         var model = require('./model');
         model.create(name);
         break;
+    case 'c':
+    case 'ctrl':
+        var name = process.argv[3];
+        if (!name) {
+            console.error('Missing parameters. Command should be "orbit ctrl ctrl-name" ');
+            return;
+        }
+        var type = process.argv[4];
+        var ctrl = require('./ctrl');
+        ctrl.create(name, type);
+        break;
+
     case 'help':
     case '--help':
         var showHelp = require('./help');

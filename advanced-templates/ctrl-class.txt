@@ -1,0 +1,8 @@
+class Ctrl {
+    get(req, res) {
+        res.status(200)
+            .send("Controller Works");
+    }
+}
+
+module.export = new Ctrl();
