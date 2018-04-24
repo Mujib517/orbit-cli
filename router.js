@@ -14,14 +14,14 @@ function createDirectory() {
     if (!fs.existsSync(routesDirectory)) fs.mkdirSync(routesDirectory);
 }
 
-function createRouteFile(fileName) {
-    var routerFile = path.join(location, "routes", fileName + ".router.js");
+function createRouteFile(name) {
+    var routerFile = path.join(location, "routes", name + ".router.js");
     if (!fs.existsSync(routerFile)) {
         var content = prepareContent();
         fs.writeFileSync(routerFile, content);
     }
     else
-        throw new Error(fileName + ".router.js already exists");
+        throw new Error(name + ".router.js already exists");
 }
 
 function prepareContent() {
@@ -30,17 +30,17 @@ function prepareContent() {
     return buffer.toString();
 }
 
-function updateIndex(fileName) {
+function updateIndex(name) {
     var indexFile = path.join(location, "index.js");
     var buffer = fs.readFileSync(indexFile);
-    var routerAlias = fileName + "Router";
-    var content = "var " + routerAlias + " = require('./routes/" + fileName + ".router.js');";
+    var routerAlias = name + "Router";
+    var content = "var " + routerAlias + " = require('./routes/" + name + ".router.js');";
     content += "\n";
     fs.writeFileSync(indexFile, content);
     content = "\n";
     fs.appendFileSync(indexFile, buffer);
 
-    content += "app.use('/api/" + fileName + "'," + routerAlias + ");";
+    content += "app.use('/api/" + name + "'," + routerAlias + ");";
     fs.appendFileSync(indexFile, content);
 }
 
@@ -49,12 +49,12 @@ function resetConsole() {
 }
 
 module.exports = {
-    createRoute: function (fileName) {
+    createRoute: function (name) {
         if (!isValidProjectDirectory) throw new Error("Not a valid Orbit project");
         createDirectory();
-        createRouteFile(fileName);
-        console.log("\x1b[32m", "Created " + fileName + ".router.js");
-        updateIndex(fileName);
+        createRouteFile(name);
+        console.log("\x1b[32m", "Created " + name + ".router.js");
+        updateIndex(name);
         console.log("\x1b[33m", "Updated index.js");
         resetConsole();
     }
