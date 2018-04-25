@@ -39,6 +39,7 @@ function getContent(name, type) {
 module.exports = {
 
     create: function (name, type) {
+        if (!helpers.isValidProjectDirectory) throw new Error("Not a valid Orbit project");
         helpers.createDirectory("controllers");
         createFile(name, type);
         console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".controller.js");

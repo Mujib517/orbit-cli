@@ -5,11 +5,6 @@ var fs = require("fs");
 var location = path.resolve('./');
 var helpers = require('./helpers');
 
-function isValidProjectDirectory() {
-    var indexFile = path.join(location, "index.js");
-    return fs.existsSync(indexFile);
-}
-
 function createRouteFile(name) {
     var routerFile = path.join(location, "routes", helpers.toCamelCase(name) + ".router.js");
     if (!fs.existsSync(routerFile)) {
@@ -44,7 +39,7 @@ function updateIndexFile(name) {
 
 module.exports = {
     createRoute: function (name) {
-        if (!isValidProjectDirectory) throw new Error("Not a valid Orbit project");
+        if (!helpers.isValidProjectDirectory) throw new Error("Not a valid Orbit project");
         helpers.createDirectory("routes");
         createRouteFile(name);
         console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".router.js");

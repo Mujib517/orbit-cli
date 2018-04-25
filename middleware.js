@@ -33,6 +33,7 @@ function updateIndexFile(name) {
 module.exports = {
 
     create: function (name) {
+        if (!helpers.isValidProjectDirectory) throw new Error("Not a valid Orbit project");
         helpers.createDirectory("middlewares");
         createFile(name);
         console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".middleware.js");

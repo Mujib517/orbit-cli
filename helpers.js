@@ -8,6 +8,12 @@ module.exports = {
         if (!fs.existsSync(directoryPath)) fs.mkdirSync(directoryPath);
     },
 
+    isValidProjectDirectory: function () {
+        var indexFile = path.join(location, "index.js");
+        var bool = fs.existsSync(indexFile);
+        return bool;
+    },
+
     toCamelCase: function (name) {
         if (name.length > 0) {
             return name[0].toLowerCase() + name.substr(1, name.length);

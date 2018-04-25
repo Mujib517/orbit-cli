@@ -44,6 +44,7 @@ function isMongooseInstalled(done) {
 
 module.exports = {
     create: function (name) {
+        if (!helpers.isValidProjectDirectory) throw new Error("Not a valid Orbit project");
         helpers.createDirectory("models");
         createFile(name);
         console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".model.js");
