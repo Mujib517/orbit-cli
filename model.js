@@ -44,7 +44,7 @@ function isMongooseInstalled(done) {
 
 module.exports = {
     create: function (name) {
-        createDirectory("models");
+        helpers.createDirectory("models");
         createFile(name);
         console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".model.js");
         console.log("Installing mongoose...");

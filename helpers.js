@@ -1,3 +1,7 @@
+var path = require('path');
+var fs = require('fs');
+var location = path.resolve('./');
+
 module.exports = {
     createDirectory: function (dirName) {
         var directoryPath = path.join(location, dirName);
