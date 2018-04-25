@@ -22,7 +22,7 @@ switch (command.toLowerCase()) {
         var projectLocation = path.join(location, projectName);
 
         var config = {
-            cwd: os.type().toLowerCase() === 'windows_nt' ? path.dirname(process.argv[1]) : '/usr/bin/node_modules/orbit-cli',
+            cwd: os.type().toLowerCase() === 'windows_nt' ? path.dirname(process.argv[1]) : '/usr/lib/node_modules/orbit-cli',
             projectLocation: projectLocation,
             projectName: projectName,
         };
