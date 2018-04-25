@@ -8,10 +8,16 @@ function createDirectory() {
 }
 
 function createFile(name) {
-    var filePath = path.join(location, "middlewares", name + ".middleware.js");
+    var filePath = path.join(location, "middlewares", tocamelCase(name) + ".middleware.js");
     if (fs.existsSync(filePath)) throw new Error("Middleware already exists");
     var content = getContent();
     fs.writeFileSync(filePath, content);
+}
+
+function tocamelCase(name) {
+    if (name.length > 0) {
+        return name[0].toLowerCase() + name.substr(1, name.length);
+    }
 }
 
 function getContent() {
@@ -20,6 +26,7 @@ function getContent() {
 }
 
 function updateIndexFile(name) {
+    name = tocamelCase(removeDashes(name));
     var indexFile = path.join(location, "index.js");
     var buffer = fs.readFileSync(indexFile);
     var middlewareAlias = name + "Middleware";
@@ -33,6 +40,10 @@ function updateIndexFile(name) {
     fs.appendFileSync(indexFile, content);
 }
 
+function removeDashes(name) {
+    return name.replace("-", "");
+}
+
 function resetConsoleColor() {
     console.log("\x1b[0m");
 }
@@ -42,7 +53,7 @@ module.exports = {
     create: function (name) {
         createDirectory();
         createFile(name);
-        console.log("\x1b[32m", "Created " + name + ".middleware.js");
+        console.log("\x1b[32m", "Created " + tocamelCase(name) + ".middleware.js");
         updateIndexFile(name);
         console.log("\x1b[33m", "Updated index.js");
         resetConsoleColor();
