@@ -12,7 +12,7 @@ function createDirectory() {
 }
 
 function createFile(name) {
-    var filePath = path.join(location, "models", name + ".model.js");
+    var filePath = path.join(location, "models", name.toLowerCase() + ".model.js");
     if (fs.existsSync(filePath)) throw new Error("Model already exists");
     var content = getContent(name);
     fs.writeFileSync(filePath, content);
@@ -22,7 +22,8 @@ function getContent(name) {
     var templateFile = path.join(__dirname, "advanced-templates", "model.txt");
     var buffer = fs.readFileSync(templateFile);
     var content = buffer.toString();
-    var transformedContent = content.replace("model_name_place_holder", toTitleCase(name));
+    var modelName = toTitleCase(name);
+    var transformedContent = content.replace("model_name_place_holder", removeDashes(modelName));
     return transformedContent;
 }
 
@@ -49,6 +50,10 @@ function resetConsoleColor() {
     console.log("\x1b[0m");
 }
 
+function removeDashes(name) {
+    return name.replace("-", "");
+}
+
 function toTitleCase(name) {
     if (name.length > 0) {
         return name[0].toUpperCase() + name.substr(1, name.length);
@@ -59,7 +64,7 @@ module.exports = {
     create: function (name) {
         createDirectory();
         createFile(name);
-        console.log("\x1b[32m", "Created " + name + ".model.js");
+        console.log("\x1b[32m", "Created " + name.toLowerCase() + ".model.js");
         console.log("Installing mongoose...");
         resetConsoleColor();
         installMongoose();
