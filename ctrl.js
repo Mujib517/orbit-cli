@@ -9,10 +9,16 @@ function createDirectory() {
 }
 
 function createFile(name, type) {
-    var filePath = path.join(location, "controllers", name + ".controller.js");
+    var filePath = path.join(location, "controllers", toCamelCase(name) + ".controller.js");
     if (fs.existsSync(filePath)) throw new Error("Controller already exists");
     var content = getContent(name, type);
     fs.writeFileSync(filePath, content);
+}
+
+function toCamelCase(name) {
+    if (name.length > 0) {
+        return name[0].toLowerCase() + name.substr(1, name.length);
+    }
 }
 
 function getContent(name, type) {
@@ -48,7 +54,7 @@ module.exports = {
     create: function (name, type) {
         createDirectory(name);
         createFile(name, type);
-        console.log("\x1b[32m", "Created " + name + ".controller.js");
+        console.log("\x1b[32m", "Created " + toCamelCase(name) + ".controller.js");
         resetConsoleColor();
     }
 };
