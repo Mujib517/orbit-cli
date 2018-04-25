@@ -22,7 +22,7 @@ function getContent(name) {
     var templateFile = path.join(__dirname, "advanced-templates", "model.txt");
     var buffer = fs.readFileSync(templateFile);
     var content = buffer.toString();
-    var transformedContent = content.replace("model_name_place_holder", name);
+    var transformedContent = content.replace("model_name_place_holder", toTitleCase(name));
     return transformedContent;
 }
 
@@ -47,6 +47,12 @@ function isMongooseInstalled(done) {
 
 function resetConsoleColor() {
     console.log("\x1b[0m");
+}
+
+function toTitleCase(name) {
+    if (name.length > 0) {
+        return name[0].toUpperCase() + name.substr(1, name.length);
+    }
 }
 
 module.exports = {

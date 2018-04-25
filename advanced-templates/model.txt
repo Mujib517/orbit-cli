@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var model = mongoose.model("person", {
+var model = mongoose.model("model_name_place_holder", {
     name: { type: String, required: true },
     lastUpdated: { type: Date, default: Date.now },
     lastUpdatedBy: { type: String }
