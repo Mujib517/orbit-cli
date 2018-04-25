@@ -15,13 +15,19 @@ function createDirectory() {
 }
 
 function createRouteFile(name) {
-    var routerFile = path.join(location, "routes", name + ".router.js");
+    var routerFile = path.join(location, "routes", tocamelCase(name) + ".router.js");
     if (!fs.existsSync(routerFile)) {
         var content = prepareContent();
         fs.writeFileSync(routerFile, content);
     }
     else
         throw new Error(name + ".router.js already exists");
+}
+
+function tocamelCase(name) {
+    if (name.length > 0) {
+        return name[0].toLowerCase() + name.substr(1, name.length);
+    }
 }
 
 function prepareContent() {
@@ -31,6 +37,7 @@ function prepareContent() {
 }
 
 function updateIndexFile(name) {
+    name = tocamelCase(removeDashes(name));
     var indexFile = path.join(location, "index.js");
     var buffer = fs.readFileSync(indexFile);
     var routerAlias = name + "Router";
@@ -48,12 +55,16 @@ function resetConsoleColor() {
     console.log("\x1b[0m");
 }
 
+function removeDashes(name) {
+    return name.replace("-", "");
+}
+
 module.exports = {
     createRoute: function (name) {
         if (!isValidProjectDirectory) throw new Error("Not a valid Orbit project");
         createDirectory();
         createRouteFile(name);
-        console.log("\x1b[32m", "Created " + name + ".router.js");
+        console.log("\x1b[32m", "Created " + tocamelCase(name) + ".router.js");
         updateIndexFile(name);
         console.log("\x1b[33m", "Updated index.js");
         resetConsoleColor();
