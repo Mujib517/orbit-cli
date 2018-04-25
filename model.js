@@ -12,10 +12,16 @@ function createDirectory() {
 }
 
 function createFile(name) {
-    var filePath = path.join(location, "models", name.toLowerCase() + ".model.js");
+    var filePath = path.join(location, "models", toCamelCase(name) + ".model.js");
     if (fs.existsSync(filePath)) throw new Error("Model already exists");
     var content = getContent(name);
     fs.writeFileSync(filePath, content);
+}
+
+function toCamelCase(name) {
+    if (name.length > 0) {
+        return name[0].toLowerCase() + name.substr(1, name.length);
+    }
 }
 
 function getContent(name) {
@@ -64,7 +70,7 @@ module.exports = {
     create: function (name) {
         createDirectory();
         createFile(name);
-        console.log("\x1b[32m", "Created " + name.toLowerCase() + ".model.js");
+        console.log("\x1b[32m", "Created " + toCamelCase(name) + ".model.js");
         console.log("Installing mongoose...");
         resetConsoleColor();
         installMongoose();
