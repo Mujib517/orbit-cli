@@ -5,6 +5,7 @@ var shell = require('shelljs');
 var path = require('path');
 var fs = require('fs');
 var location = path.resolve('./');
+var helpers = require('./helpers');
 
 function createDirectory() {
     var directoryPath = path.join(location, "models");
@@ -12,24 +13,18 @@ function createDirectory() {
 }
 
 function createFile(name) {
-    var filePath = path.join(location, "models", toCamelCase(name) + ".model.js");
+    var filePath = path.join(location, "models", helpers.toCamelCase(name) + ".model.js");
     if (fs.existsSync(filePath)) throw new Error("Model already exists");
     var content = getContent(name);
     fs.writeFileSync(filePath, content);
-}
-
-function toCamelCase(name) {
-    if (name.length > 0) {
-        return name[0].toLowerCase() + name.substr(1, name.length);
-    }
 }
 
 function getContent(name) {
     var templateFile = path.join(__dirname, "advanced-templates", "model.txt");
     var buffer = fs.readFileSync(templateFile);
     var content = buffer.toString();
-    var modelName = toTitleCase(name);
-    var transformedContent = content.replace("model_name_place_holder", removeDashes(modelName));
+    var modelName = helpers.toTitleCase(name);
+    var transformedContent = content.replace("model_name_place_holder", helpers.removeDashes(modelName));
     return transformedContent;
 }
 
@@ -52,27 +47,13 @@ function isMongooseInstalled(done) {
     shell.exec("node -p require('mongoose').version", { silent: true }, done);
 }
 
-function resetConsoleColor() {
-    console.log("\x1b[0m");
-}
-
-function removeDashes(name) {
-    return name.replace("-", "");
-}
-
-function toTitleCase(name) {
-    if (name.length > 0) {
-        return name[0].toUpperCase() + name.substr(1, name.length);
-    }
-}
-
 module.exports = {
     create: function (name) {
         createDirectory();
         createFile(name);
-        console.log("\x1b[32m", "Created " + toCamelCase(name) + ".model.js");
+        console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".model.js");
         console.log("Installing mongoose...");
-        resetConsoleColor();
+        helpers.resetConsoleColor();
         installMongoose();
     }
 };

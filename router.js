@@ -3,6 +3,7 @@
 var path = require("path");
 var fs = require("fs");
 var location = path.resolve('./');
+var helpers = require('./helpers');
 
 function isValidProjectDirectory() {
     var indexFile = path.join(location, "index.js");
@@ -15,7 +16,7 @@ function createDirectory() {
 }
 
 function createRouteFile(name) {
-    var routerFile = path.join(location, "routes", tocamelCase(name) + ".router.js");
+    var routerFile = path.join(location, "routes", helpers.toCamelCase(name) + ".router.js");
     if (!fs.existsSync(routerFile)) {
         var content = prepareContent();
         fs.writeFileSync(routerFile, content);
@@ -24,11 +25,6 @@ function createRouteFile(name) {
         throw new Error(name + ".router.js already exists");
 }
 
-function tocamelCase(name) {
-    if (name.length > 0) {
-        return name[0].toLowerCase() + name.substr(1, name.length);
-    }
-}
 
 function prepareContent() {
     var routeTemplatePath = path.join(__dirname, "advanced-templates", "route-template.txt");
@@ -37,7 +33,7 @@ function prepareContent() {
 }
 
 function updateIndexFile(name) {
-    name = tocamelCase(removeDashes(name));
+    name = helpers.toCamelCase(helpers.removeDashes(name));
     var indexFile = path.join(location, "index.js");
     var buffer = fs.readFileSync(indexFile);
     var routerAlias = name + "Router";
@@ -51,22 +47,14 @@ function updateIndexFile(name) {
     fs.appendFileSync(indexFile, content);
 }
 
-function resetConsoleColor() {
-    console.log("\x1b[0m");
-}
-
-function removeDashes(name) {
-    return name.replace("-", "");
-}
-
 module.exports = {
     createRoute: function (name) {
         if (!isValidProjectDirectory) throw new Error("Not a valid Orbit project");
         createDirectory();
         createRouteFile(name);
-        console.log("\x1b[32m", "Created " + tocamelCase(name) + ".router.js");
+        console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".router.js");
         updateIndexFile(name);
         console.log("\x1b[33m", "Updated index.js");
-        resetConsoleColor();
+        helpers.resetConsoleColor();
     }
 };

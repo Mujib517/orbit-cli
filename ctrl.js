@@ -2,6 +2,7 @@
 var path = require('path');
 var fs = require('fs');
 var location = path.resolve('./');
+var helpers = require('./helpers');
 
 function createDirectory() {
     var directoryPath = path.join(location, "controllers");
@@ -9,16 +10,10 @@ function createDirectory() {
 }
 
 function createFile(name, type) {
-    var filePath = path.join(location, "controllers", toCamelCase(name) + ".controller.js");
+    var filePath = path.join(location, "controllers", helpers.toCamelCase(name) + ".controller.js");
     if (fs.existsSync(filePath)) throw new Error("Controller already exists");
     var content = getContent(name, type);
     fs.writeFileSync(filePath, content);
-}
-
-function toCamelCase(name) {
-    if (name.length > 0) {
-        return name[0].toLowerCase() + name.substr(1, name.length);
-    }
 }
 
 function getContent(name, type) {
@@ -45,16 +40,13 @@ function getContent(name, type) {
     return buffer.toString();
 }
 
-function resetConsoleColor() {
-    console.log("\x1b[0m");
-}
 
 module.exports = {
 
     create: function (name, type) {
         createDirectory(name);
         createFile(name, type);
-        console.log("\x1b[32m", "Created " + toCamelCase(name) + ".controller.js");
-        resetConsoleColor();
+        console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".controller.js");
+        helpers.resetConsoleColor();
     }
 };
