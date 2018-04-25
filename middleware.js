@@ -3,11 +3,6 @@ var fs = require('fs');
 var location = path.resolve('./');
 var helpers = require('./helpers');
 
-function createDirectory() {
-    var directoryPath = path.join(location, "middlewares");
-    if (!fs.existsSync(directoryPath)) fs.mkdirSync(directoryPath);
-}
-
 function createFile(name) {
     var filePath = path.join(location, "middlewares", helpers.toCamelCase(name) + ".middleware.js");
     if (fs.existsSync(filePath)) throw new Error("Middleware already exists");
@@ -38,7 +33,7 @@ function updateIndexFile(name) {
 module.exports = {
 
     create: function (name) {
-        createDirectory();
+        helpers.createDirectory("middlewares");
         createFile(name);
         console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".middleware.js");
         updateIndexFile(name);

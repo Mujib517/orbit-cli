@@ -7,11 +7,6 @@ var fs = require('fs');
 var location = path.resolve('./');
 var helpers = require('./helpers');
 
-function createDirectory() {
-    var directoryPath = path.join(location, "models");
-    if (!fs.existsSync(directoryPath)) fs.mkdirSync(directoryPath);
-}
-
 function createFile(name) {
     var filePath = path.join(location, "models", helpers.toCamelCase(name) + ".model.js");
     if (fs.existsSync(filePath)) throw new Error("Model already exists");
@@ -49,7 +44,7 @@ function isMongooseInstalled(done) {
 
 module.exports = {
     create: function (name) {
-        createDirectory();
+        createDirectory("models");
         createFile(name);
         console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".model.js");
         console.log("Installing mongoose...");

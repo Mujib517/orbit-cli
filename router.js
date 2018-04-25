@@ -10,11 +10,6 @@ function isValidProjectDirectory() {
     return fs.existsSync(indexFile);
 }
 
-function createDirectory() {
-    var routesDirectory = path.join(location, "routes");
-    if (!fs.existsSync(routesDirectory)) fs.mkdirSync(routesDirectory);
-}
-
 function createRouteFile(name) {
     var routerFile = path.join(location, "routes", helpers.toCamelCase(name) + ".router.js");
     if (!fs.existsSync(routerFile)) {
@@ -50,7 +45,7 @@ function updateIndexFile(name) {
 module.exports = {
     createRoute: function (name) {
         if (!isValidProjectDirectory) throw new Error("Not a valid Orbit project");
-        createDirectory();
+        helpers.createDirectory("routes");
         createRouteFile(name);
         console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".router.js");
         updateIndexFile(name);

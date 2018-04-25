@@ -1,4 +1,9 @@
 module.exports = {
+    createDirectory: function (dirName) {
+        var directoryPath = path.join(location, dirName);
+        if (!fs.existsSync(directoryPath)) fs.mkdirSync(directoryPath);
+    },
+
     toCamelCase: function (name) {
         if (name.length > 0) {
             return name[0].toLowerCase() + name.substr(1, name.length);
