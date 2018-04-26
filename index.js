@@ -12,6 +12,8 @@ var command = process.argv[2];
 switch (command.toLowerCase()) {
     case 'new':
     case 'n':
+    case 'mvc':
+    case 'api':
         var projectName = process.argv[3];
         if (!projectName) {
             console.error('Missing parameters. Command should be "orbit new project-name" ');
@@ -24,6 +26,7 @@ switch (command.toLowerCase()) {
             cwd: path.dirname(process.argv[1]),
             projectLocation: projectLocation,
             projectName: projectName,
+            type: command
         };
         var project = require('./project')(config);
         project.createProject();
