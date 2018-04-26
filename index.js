@@ -17,7 +17,7 @@ switch (command.toLowerCase()) {
     case 'api':
         var projectName = process.argv[3];
         if (!projectName) {
-            console.error('Missing parameters. Command should be "orbit new project-name" ');
+            console.error('Missing parameters. Command should be "orbit new project-name" or "orbit mvc project-name" ');
             return;
         }
         var location = path.resolve('./');
