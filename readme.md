@@ -6,7 +6,7 @@
     <img src="https://badge.fury.io/js/orbit-cli.svg"/>
 </div>
 
-Orbit generates the project skeleton which includes all the necessary code files and build script(Travis CI).
+Orbit generates the project skeleton which includes all the necessary code files, build script(Travis CI) and deployment script (docker).
 
 ### Installation
 npm install orbit-cli -g
@@ -33,6 +33,19 @@ orbit n project-name
 ```bash
 orbit-cli n project-name
 ```
+### Create Express MVC project
+Open a command prompt and run:
+
+```bash
+orbit mvc project-name 
+```
+(or)
+
+```bash
+orbit-cli mvc project-name
+```
+
+
 ### To get help
 
 ```bash

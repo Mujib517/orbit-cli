@@ -13,9 +13,11 @@ var command = process.argv[2];
 switch (command.toLowerCase()) {
     case 'new':
     case 'n':
+    case 'mvc':
+    case 'api':
         var projectName = process.argv[3];
         if (!projectName) {
-            console.error('Missing parameters. Command should be "orbit new project-name" ');
+            console.error('Missing parameters. Command should be "orbit new project-name" or "orbit mvc project-name" ');
             return;
         }
         var location = path.resolve('./');
@@ -25,6 +27,7 @@ switch (command.toLowerCase()) {
             cwd: os.type().toLowerCase() === 'windows_nt' ? path.dirname(process.argv[1]) : '/usr/lib/node_modules/orbit-cli',
             projectLocation: projectLocation,
             projectName: projectName,
+            type: command
         };
         var project = require('./project')(config);
         project.createProject();
