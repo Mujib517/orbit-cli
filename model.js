@@ -5,14 +5,10 @@ var shell = require('shelljs');
 var path = require('path');
 var fs = require('fs');
 var location = path.resolve('./');
-
-function createDirectory() {
-    var directoryPath = path.join(location, "models");
-    if (!fs.existsSync(directoryPath)) fs.mkdirSync(directoryPath);
-}
+var helpers = require('./helpers');
 
 function createFile(name) {
-    var filePath = path.join(location, "models", name + ".model.js");
+    var filePath = path.join(location, "models", helpers.toCamelCase(name) + ".model.js");
     if (fs.existsSync(filePath)) throw new Error("Model already exists");
     var content = getContent(name);
     fs.writeFileSync(filePath, content);
@@ -22,7 +18,8 @@ function getContent(name) {
     var templateFile = path.join(__dirname, "advanced-templates", "model.txt");
     var buffer = fs.readFileSync(templateFile);
     var content = buffer.toString();
-    var transformedContent = content.replace("model_name_place_holder", name);
+    var modelName = helpers.toTitleCase(name);
+    var transformedContent = content.replace("model_name_place_holder", helpers.removeDashes(modelName));
     return transformedContent;
 }
 
@@ -45,17 +42,14 @@ function isMongooseInstalled(done) {
     shell.exec("node -p require('mongoose').version", { silent: true }, done);
 }
 
-function resetConsoleColor() {
-    console.log("\x1b[0m");
-}
-
 module.exports = {
     create: function (name) {
-        createDirectory();
+        if (!helpers.isValidProjectDirectory) throw new Error("Not a valid Orbit project");
+        helpers.createDirectory("models");
         createFile(name);
-        console.log("\x1b[32m", "Created " + name + ".model.js");
+        console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".model.js");
         console.log("Installing mongoose...");
-        resetConsoleColor();
+        helpers.resetConsoleColor();
         installMongoose();
     }
 };

@@ -2,14 +2,10 @@
 var path = require('path');
 var fs = require('fs');
 var location = path.resolve('./');
-
-function createDirectory() {
-    var directoryPath = path.join(location, "controllers");
-    if (!fs.existsSync(directoryPath)) fs.mkdirSync(directoryPath);
-}
+var helpers = require('./helpers');
 
 function createFile(name, type) {
-    var filePath = path.join(location, "controllers", name + ".controller.js");
+    var filePath = path.join(location, "controllers", helpers.toCamelCase(name) + ".controller.js");
     if (fs.existsSync(filePath)) throw new Error("Controller already exists");
     var content = getContent(name, type);
     fs.writeFileSync(filePath, content);
@@ -39,16 +35,14 @@ function getContent(name, type) {
     return buffer.toString();
 }
 
-function resetConsoleColor() {
-    console.log("\x1b[0m");
-}
 
 module.exports = {
 
     create: function (name, type) {
-        createDirectory(name);
+        if (!helpers.isValidProjectDirectory) throw new Error("Not a valid Orbit project");
+        helpers.createDirectory("controllers");
         createFile(name, type);
-        console.log("\x1b[32m", "Created " + name + ".controller.js");
-        resetConsoleColor();
+        console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".controller.js");
+        helpers.resetConsoleColor();
     }
 };

@@ -1,14 +1,10 @@
 var path = require('path');
 var fs = require('fs');
 var location = path.resolve('./');
-
-function createDirectory() {
-    var directoryPath = path.join(location, "middlewares");
-    if (!fs.existsSync(directoryPath)) fs.mkdirSync(directoryPath);
-}
+var helpers = require('./helpers');
 
 function createFile(name) {
-    var filePath = path.join(location, "middlewares", name + ".middleware.js");
+    var filePath = path.join(location, "middlewares", helpers.toCamelCase(name) + ".middleware.js");
     if (fs.existsSync(filePath)) throw new Error("Middleware already exists");
     var content = getContent();
     fs.writeFileSync(filePath, content);
@@ -20,6 +16,7 @@ function getContent() {
 }
 
 function updateIndexFile(name) {
+    name = helpers.toCamelCase(helpers.removeDashes(name));
     var indexFile = path.join(location, "index.js");
     var buffer = fs.readFileSync(indexFile);
     var middlewareAlias = name + "Middleware";
@@ -33,18 +30,15 @@ function updateIndexFile(name) {
     fs.appendFileSync(indexFile, content);
 }
 
-function resetConsoleColor() {
-    console.log("\x1b[0m");
-}
-
 module.exports = {
 
     create: function (name) {
-        createDirectory();
+        if (!helpers.isValidProjectDirectory) throw new Error("Not a valid Orbit project");
+        helpers.createDirectory("middlewares");
         createFile(name);
-        console.log("\x1b[32m", "Created " + name + ".middleware.js");
+        console.log("\x1b[32m", "Created " + helpers.toCamelCase(name) + ".middleware.js");
         updateIndexFile(name);
         console.log("\x1b[33m", "Updated index.js");
-        resetConsoleColor();
+        helpers.resetConsoleColor();
     }
 };
