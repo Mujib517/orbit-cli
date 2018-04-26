@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
 var path = require('path');
+var os = require('os');
 
 if (process.argv.length < 3) {
     console.error('Missing parameters. Command should be "orbit new project-name" ');
@@ -23,7 +24,7 @@ switch (command.toLowerCase()) {
         var projectLocation = path.join(location, projectName);
 
         var config = {
-            cwd: path.dirname(process.argv[1]),
+            cwd: os.type().toLowerCase() === 'windows_nt' ? path.dirname(process.argv[1]) : '/usr/lib/node_modules/orbit-cli',
             projectLocation: projectLocation,
             projectName: projectName,
             type: command
