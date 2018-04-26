@@ -33,6 +33,19 @@ orbit n project-name
 ```bash
 orbit-cli n project-name
 ```
+### Create Express MVC project
+Open a command prompt and run:
+
+```bash
+orbit mvc project-name 
+```
+(or)
+
+```bash
+orbit-cli mvc project-name
+```
+
+
 ### To get help
 
 ```bash
