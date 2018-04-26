@@ -18,7 +18,6 @@ module.exports = function Project(config) {
         var buffer = fs.readFileSync(path.join(config.cwd, srcDirName, "package.json"));
         var content = buffer.toString();
         var transpiledContent = content.replace('express-api-generator', config.projectName);
-        console.log(transpiledContent);
         fs.writeFileSync(path.join(config.projectLocation, "package.json"), transpiledContent);
     };
 
