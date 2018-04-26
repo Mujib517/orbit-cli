@@ -26,7 +26,9 @@ module.exports = function Project(config) {
         ncp(src, config.projectLocation, function (err) {
             if (!err) {
                 console.log("Project Created.");
-                console.log("Running npm install to install dependencies")
+                console.log("Running npm install to install dependencies");
+                createPackageJson();
+                installDepepdencies();
             }
         });
     };
@@ -43,8 +45,6 @@ module.exports = function Project(config) {
     var createProject = function () {
         createDirectory();
         copyContents();
-        createPackageJson();
-        installDepepdencies();
     };
 
     return {
