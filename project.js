@@ -7,23 +7,26 @@ var shell = require('shelljs');
 
 
 module.exports = function Project(config) {
+    var srcDirName = config.type.toLowerCase() === "mvc" ? "mvc-templates" : "templates";
+
     var createDirectory = function () {
         fs.mkdirSync(config.projectLocation);
     };
 
     var createPackageJson = function () {
-        var buffer = fs.readFileSync(path.join(config.cwd, "templates", "package.json"));
+
+        var buffer = fs.readFileSync(path.join(config.cwd, srcDirName, "package.json"));
         var content = buffer.toString();
-        var transpiledContent = content.replace('"name": "express-api-generator",', '"name": "' + config.projectName + '",');
+        var transpiledContent = content.replace('express-api-generator', config.projectName);
         fs.writeFileSync(path.join(config.projectLocation, "package.json"), transpiledContent);
     };
 
     var copyContents = function () {
-        var src = path.join(config.cwd, "templates");
-
+        var src = path.join(config.cwd, srcDirName);
         ncp(src, config.projectLocation, function (err) {
             if (!err) {
                 console.log("Project Created.");
+                console.log("Running npm install to install dependencies")
             }
         });
     };

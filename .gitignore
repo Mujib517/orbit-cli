@@ -3,3 +3,4 @@
 dist/
 node_modules
 myproject
+npm-debug.log
