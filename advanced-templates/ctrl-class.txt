@@ -5,4 +5,4 @@ class Ctrl {
     }
 }
 
-module.export = new Ctrl();
+module.exports = new Ctrl();
